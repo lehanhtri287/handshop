@@ -1,0 +1,180 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="theme-color" content="#3e454c">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Quản lý web - Thống kê</title>
+<!-- InstanceEndEditable -->
+<!-- Font awesome -->
+<link rel="stylesheet" th:href="@{/admin/css/font-awesome.min.css}">
+<!-- Sandstone Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/admin/css/bootstrap.minAdmin.css}">
+<!-- Admin Style -->
+<link rel="stylesheet" th:href="@{/admin/css/styleAdmin.css}">
+<!-- /.content-wrapper -->
+<script th:src="@{/admin/js/Chart.min.js}"></script>
+<script th:src="@{/admin/js/chartData.js}"></script>
+<!-- InstanceEndEditable -->
+<!-- Loading Scripts -->
+<script th:src="@{/admin/js/jquery.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/js/main.js}"></script>
+<script th:src="@{/admin/js/label.js}"></script>
+</head>
+
+<body>
+	<div class="brand clearfix">
+		<a th:href="@{/admin/index}" class="logo"><img src="#"
+			class="img-responsive" alt=""></a> <span class="menu-btn"><i
+			class="fa fa-bars"></i></span>
+		<ul class="ts-profile-nav">
+			<li class="ts-account"><a href="#"
+				th:text="${session.admin.fullName}"><img src="#"
+					class="ts-avatar hidden-side" alt=""><i
+					class="fa fa-angle-down hidden-side"></i></a>
+				<ul>
+					<li><a th:href="@{/admin/logout}">Đăng xuất</a></li>
+				</ul></li>
+		</ul>
+	</div>
+	<div class="ts-main-content">
+		<nav class="ts-sidebar">
+			<ul class="ts-sidebar-menu">
+				<li class="ts-label">Danh mục</li>
+			</ul>
+			<!-- InstanceBeginEditable name="open" -->
+			<ul class="ts-sidebar-menu">
+				<li class="open"><a th:href="@{/admin/index}"><i
+						class="fa fa-dashboard"></i>Thống kê</a></li>
+				<li><a th:href="@{/admin/manageProduct}"><i class="fa fa-database"></i>Sản
+						phẩm</a></li>
+				<li><a th:href="@{/admin/manageOrder}"><i class="fa fa-pencil-square-o"></i>Đơn
+						hàng</a></li>
+				<li><a th:href="@{/admin/manageCustomer}"><i class="fa fa-users"></i>Khách
+						hàng</a></li>
+
+			</ul>
+			<!-- InstanceEndEditable -->
+		</nav>
+		<!-- InstanceBeginEditable name="content" -->
+		<div class="content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<h2 class="page-title">Thống kê</h2>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-3">
+										<div class="panel panel-default">
+											<div class="panel-body bk-primary text-light">
+												<div class="stat-panel text-center">
+													<div class="stat-panel-number h1" th:text="${accountSize}"></div>
+													<div class="stat-panel-title text-uppercase">Khách
+														hàng</div>
+												</div>
+											</div>
+											<a th:href="@{/admin/manageCustomer}"
+												class="block-anchor panel-footer text-center">Xem chi
+												tiết <i class="fa fa-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+
+									<div class="col-md-3">
+										<div class="panel panel-default">
+											<div class="panel-body bk-info text-light">
+												<div class="stat-panel text-center">
+													<div class="stat-panel-number h1 " th:text="${orderSize}"></div>
+													<div class="stat-panel-title text-uppercase">Đơn hàng</div>
+												</div>
+											</div>
+											<a th:href="@{/admin/manageOrder}"
+												class="block-anchor panel-footer text-center">Xem tất cả
+												&nbsp; <i class="fa fa-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="panel panel-default">
+											<div class="panel-body bk-warning text-light">
+												<div class="stat-panel text-center">
+													<div class="stat-panel-number h1 "
+														th:text="${productSize}"></div>
+													<div class="stat-panel-title text-uppercase">Sản phẩm</div>
+												</div>
+											</div>
+											<a th:href="@{/admin/manageProduct}" class="block-anchor panel-footer text-center">Xem
+												tất cả &nbsp; <i class="fa fa-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="panel panel-default">
+								<div class="panel-heading">Sản phẩm mới</div>
+								<div class="panel-body">
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>Mã sản phẩm</th>
+												<th>Tên sản phẩm</th>
+												<th>Giá</th>
+											</tr>
+										</thead>
+										<tbody th:each="newProduct: ${newProducts}">
+											<tr>
+												<th scope="row" th:text="${newProduct.idProduct}"></th>
+												<td th:text="${newProduct.nameProduct}"></td>
+												<td th:text="${newProduct.price}"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="panel panel-default">
+								<div class="panel-heading">Đơn hàng gần đây</div>
+								<div class="panel-body">
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>Mã ĐH</th>
+												<th>Họ Tên</th>
+												<th>Email</th>
+												<th>Tình trạng</th>
+											</tr>
+										</thead>
+										<tbody th:each="newOrder: ${newOrders}">
+											<tr>
+												<th scope="row" th:text="${newOrder.idOrder}"></th>
+												<td th:text="${newOrder.customerName}"></td>
+												<td th:text="${newOrder.email}"></td>
+												<td th:text="${newOrder.generateStatus()}"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</div>
+
+</body>
+<!-- InstanceEnd -->
+</html>

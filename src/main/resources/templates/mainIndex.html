@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div class="content" th:fragment="main">
+		<div class="container">
+			<div class="content-top">
+				<h3 class="message" th:if="${loginSuccess}" th:text="${loginSuccess}"></h3>
+				<h1>Danh sách sản phẩm</h1>
+
+				<div class="content-top1">
+
+					<!-- <div th:if="${listProducts.isEmpty()}">
+						<h3 style="text-align: center; color: red; margin-top: 50px">KhÃ´ng
+							cÃ³ sáº£n pháº©m thuá»™c loáº¡i hÃ ng nÃ y</h3>
+					</div>-->
+					<div class="item" th:each="product : ${listProducts}">
+						<a th:href="@{'/single/' + ${product.idProduct}}"> <img
+							class="img-responsive" th:src="@{'/' + ${product.images}}" />
+						</a>
+						<h3>
+							<a id="nameProduct" th:href="@{'/single/' + ${product.idProduct}}"
+								th:utext="${product.nameProduct}"></a>
+						</h3>
+						<div class="price">
+							<h5 class="item_price"
+								th:utext="${#numbers.formatInteger(product.price, 3, 'COMMA')} + ' Đ' "></h5>
+							<a th:href="@{#}"
+								th:onclick="'addCart(\''+ ${product.idProduct}+'\');'"
+								class="cart item_add">Thêm vào giỏ</a>
+							<div class="clearfix"></div>
+						</div>
+
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

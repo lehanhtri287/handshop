@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Chi tiết đơn hàng</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css"
+	media="all" />
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords"
+	content="Fashion Mania Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+
+<!-- start menu -->
+<link th:href="@{/css/memenu.css}" rel="stylesheet" type="text/css"
+	media="all" />
+</head>
+<body>
+	<!--header-->
+	<div th:replace="header :: header"></div>
+	<!--content-->
+	<div class="account" th:classappend="${session.user == null} ? 'userNotLogin' : ''">
+		<div class="menuSettings" th:if="${session.user != null}">
+			<ul>
+				<li><a class="settingLink" th:href="@{/user/info}">Đổi thông tin</a></li>
+				<li><a class="settingLink" th:href="@{/user/info/orders}">Lịch sử đơn hàng</a></li>
+			</ul>
+		</div>
+		<div class="orderContainer">
+			<h3 class="message" th:if="${message!=null}" th:text="${message}"></h3>
+			<div class="orderH" th:if="${session.user != null}">
+				<h2 class="message orderTitle">Chi tiết đơn hàng</h2>
+				<div class="orderT">
+					<table class="table table-hover" border="1" align="center">
+						<tr class="tHead">
+							<th>Mã SP</th>
+							<th>Tên sản phẩm</th>
+							<th>Hình ảnh</th>
+							<th>Giá(VNĐ)</th>
+							<th>Số lượng</th>
+							<th>Thành tiền(VNĐ)</th>
+						</tr>
+						<tr th:each="detail : ${orderDetail}">
+							<td th:text="${detail.sanpham.idProduct}"></td>
+							<td th:text="${detail.sanpham.nameProduct}"></td>
+							<td>
+								<img th:src="${'/' + detail.sanpham.images}" width="80" height="40">
+							</td>
+							<td th:text="${#numbers.formatInteger(detail.sanpham.price, 3, 'COMMA')} + ' Đ'"></td>
+							<td th:text="${detail.id.soLuong}"></td>
+							<td th:text="${#numbers.formatInteger(detail.sanpham.price * detail.id.soLuong, 3, 'COMMA')} + ' Đ'"></td>
+						</tr>
+					</table>
+					<div class="navbar-right">
+						<h3 class="amount">Tổng tiền: </h3>
+						<h3 class="amount amRight" id="totalAmount" th:text="${#numbers.formatInteger(order.totalAmount, 3, 'COMMA')} + ' Đ'"></h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<!--footer-->
+	<div th:replace="footer :: footer"></div>
+	<script type="text/javascript">
+		$(function(res) {
+			var sizeCart = $("#sizeCart").html();
+			if (sizeCart == "(null)") {
+				$("#sizeCart").html("(0)");
+			}
+		});
+	</script>
+</body>
+</html>

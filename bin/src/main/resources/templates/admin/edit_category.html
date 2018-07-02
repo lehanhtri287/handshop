@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<!-- InstanceBegin template="Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="theme-color" content="#3e454c">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Chỉnh sửa danh mục</title>
+<!-- InstanceEndEditable -->
+<!-- Font awesome -->
+<link rel="stylesheet" th:href="@{/admin/css/font-awesome.min.css}">
+<!-- Sandstone Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/admin/css/bootstrap.minAdmin.css}">
+<!-- Admin Style -->
+<link rel="stylesheet" th:href="@{/admin/css/styleAdmin.css}">
+<script th:src="@{/admin/js/jquery.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/js/main.js}"></script>
+<script th:src="@{/admin/js/index.js}"></script>
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/admin/js/validateEditProduct.js}"></script>
+<script th:src="@{/js/validateAddCate.js}"></script>
+
+</head>
+
+<body>
+	<div class="brand clearfix">
+		<a th:href="@{/admin/index}" class="logo"><img src="img/logo.jpg"
+			class="img-responsive" alt=""></a> <span class="menu-btn"><i
+			class="fa fa-bars"></i></span>
+		<ul class="ts-profile-nav">
+			<li class="ts-account"><a href="#" th:text="${session.admin.fullName}"><img
+					src="img/ts-avatar.jpg" class="ts-avatar hidden-side" alt="">
+					<i class="fa fa-angle-down hidden-side"></i></a>
+				<ul>
+					<li><a th:href="@{/admin/logout}">Đăng xuất</a></li>
+				</ul></li>
+		</ul>
+	</div>
+	<div class="ts-main-content">
+		<nav class="ts-sidebar">
+			<ul class="ts-sidebar-menu">
+				<li class="ts-label">Danh Mục</li>
+			</ul>
+			<ul class="ts-sidebar-menu">
+				<li><a th:href="@{/admin/index}"><i class="fa fa-dashboard"></i>Thống
+						Kê</a></li>
+				<li class="open"><a th:href="@{/admin/manageProduct}"><i
+						class="fa fa-database"></i>Sản Phẩm</a></li>
+				<li><a th:href="@{/admin/manageOrder}"><i class="fa fa-pencil-square-o"></i>Đơn
+						Hàng</a></li>
+				<li><a th:href="@{/admin/manageCustomer}"><i class="fa fa-users"></i>Khách
+						Hàng</a></li>
+			</ul>
+		</nav>
+		<!-- InstanceBeginEditable name="content" -->
+		<div class="content-wrapper">
+			<div class="container-fluid">
+				<div class="add-product">
+					<div class="col-md-12">
+						<form th:action="@{/admin/editCategory}"
+				  			  id="formCategory"
+							  method="POST">
+							<div class="title-product">
+								<h1 class="text-center"> Chỉnh sửa danh mục</h1>
+							</div>
+							<div class="row">
+								<div class="main col-md-8">
+									<input 
+										type="number" 
+										th:value="${category.idCategory}" 
+										class="pid" 
+										name="idCategory"
+										readonly="readonly"/>
+									<input
+										id="formNameCategory"
+										name="nameCategory"
+										th:value="${category.nameCategory}"
+										type="text" class="pid" 
+										placeholder="Nhập tên danh mục..."/>
+									<br>
+									<label style="color: red;" id="errorNameCategory"></label>
+								</div>
+
+							</div>
+							<div class="clearfix"></div>
+							<div class="row">
+								<div class="col-md-12">
+									<button class="btn btn-primary" type="submit">
+										<i class="fa fa-edit"> Chỉnh sửa</i>
+									</button>
+									<a style="margin-left: 10px" th:href="@{/admin/manageCategory}" type="submit">Quay lại</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</div>
+		<!-- /.content-wrapper -->
+		<script>
+			function readURL(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function(e) {
+						$('#pimg').attr('src', e.target.result).width(150)
+								.height(200);
+					};
+
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+		</script>
+		<!-- InstanceEndEditable -->
+	</div>
+	
+</body>
+<!-- InstanceEnd -->
+</html>

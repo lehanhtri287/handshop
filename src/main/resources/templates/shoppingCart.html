@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+
+<title>Giỏ hàng</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css"
+	media="all" />
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/validatePaymentForm.js}"></script>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords"
+	content="Fashion Mania Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+
+<!-- start menu -->
+<link th:href="@{/css/memenu.css}" rel="stylesheet" type="text/css" media="all" />
+
+<link th:href="@{/css/memenu.css}" rel="stylesheet" type="text/css"
+	media="all" />
+<script type="text/javascript" th:src="@{/js/memenu.js}"></script>
+<script>
+	$(document).ready(function() {
+		$(".memenu").memenu();
+	});
+</script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+	$(function() {
+		$("#slider").responsiveSlides({
+			auto : true,
+			speed : 500,
+			namespace : "callbacks",
+			pager : true,
+		});
+	});
+</script>
+
+</head>
+<body>
+	<!--header-->
+	<div th:replace="header :: header"></div>
+	<!--content-->
+	<div class="row fh5co-post-entry">
+		<h2 class="cartHeader">Giỏ hàng</h2>
+		<table class="table table-hover" border="1" align="center">
+			<tr class="tHead">
+				<th>Mã SP</th>
+				<th>Tên sản phẩm</th>
+				<th>Hình ảnh</th>
+				<th>Giá(VNĐ)</th>
+				<th>Số lượng</th>
+				<th>Thành tiền(VNĐ)</th>
+				<th>Thao tác</th>
+			</tr>
+			<tr th:each="productCart : ${productsCart}">
+				<td th:text="${productCart.product.idProduct}"></td>
+				<td th:text="${productCart.product.nameProduct}"></td>
+				<td><img th:src="@{'/' + ${productCart.product.images}}"
+					width="80" height="40"></td>
+				<td id="price"
+					th:text="${#numbers.formatInteger(productCart.product.price, 3, 'COMMA')} + ' VNĐ' "></td>
+
+				<td style="width: 80px">
+					<div class="input-group input-group-lg" style="width: 80px;">
+						<span class="input-group-addon" id="sizing-addon1"> 
+							<a th:href="@{'/plusProduct/' + ${productCart.product.idProduct}}">+</a>
+						</span>
+						<input 
+							type="number" id="quantity" 
+							class="form-control"
+							aria-describedby="sizing-addon1" 
+							readonly="readonly"
+							th:value="${productCart.quantityCart}" 
+							name="quantity"
+							style="width: 70px; height: 45px;" /> 
+						<span class="input-group-addon" id="sizing-addon1"> 
+							<a th:href="@{'/minusProduct/' + ${productCart.product.idProduct}}">-</a>
+						</span>
+					</div>
+				</td>
+				<td id="cost"
+					th:text="${#numbers.formatInteger(productCart.product.price * productCart.quantityCart, 3, 'COMMA')} + ' VNĐ'">
+				</td>
+				<td><a
+					th:href="@{'/deletecart/' + ${productCart.product.idProduct}}"
+					class="btn btn-danger" role="button">Xóa</a></td>
+			</tr>
+		</table>
+		<div class="navbar-center" style="text-align: center;">
+			<label style="color: red;" id="errorListProducts"></label>
+		</div>
+		<div class="navbar-right">
+			<h3 class="amount">Tổng tiền: </h3>
+			<h3 class="amount amRight"
+				id="totalAmount"
+				th:text="${#numbers.formatInteger(totalAmount, 3, 'COMMA')}"></h3>
+			<h3 class="amount amRight">VNĐ</h3>
+		</div>
+
+		<div class="navbar-left" th:if="${user == null}">
+			<h1>Thông tin khách hàng</h1>
+			<form th:action="@{/payment}" 
+				  id="formPayment"
+				  method="POST">
+
+				<table class="customerInfo">
+					<tr>
+						<td><span class="myLabel">Họ Tên </span>
+							<label style="color: red;" id="errorName"></label> 
+							<input type="text"
+						    	   name="customerName" 
+						    	   class="customer-payment" 
+						    	   th:value="${(session.user != null) ? session.user.fullName : ''}"
+								   id="formName"></td>
+					</tr>
+					<tr>
+						<td><span class="myLabel">Email </span> 
+							<label style="color: red;" id="errorEmail"></label>
+							<input type="email"
+								   name="email" 
+								   class="customer-payment" 
+								   th:value="${(session.user != null) ? session.user.email : ''}" 
+								   id="formEmail"></td>
+					</tr>
+					<tr>
+						<td><span class="myLabel">Số điện thoại </span> 
+							<label style="color: red;" id="errorPhone"></label>
+							<input type="tel"
+						 		   name="phoneNumber" 
+						 		   class="customer-payment" 
+						 		   th:value="${(session.user != null) ? session.user.phoneNumber : ''}" 
+						 		   id="formPhone"></td>
+					</tr>
+					<tr>
+						<td><span class="myLabel">Địa chỉ </span> 
+							<label style="color: red;" id="errorAddress"></label> 
+							<textarea rows="4"
+									  cols="30" name="address" 
+									  class="customer-payment" 
+									  th:text="${(session.user != null) ? session.user.address : ''}"
+									  id="formAddress"></textarea></td>
+					</tr>
+				</table>
+
+				<input type="submit" class="paymentSubmit" id="payment"
+					value="Thanh toán"> <label style="color: red;"></label>
+			</form>
+		</div>
+		
+		<div class="navbar-left" th:if="${user != null}">
+			<h2>Thông tin khách hàng</h2>
+			<form th:action="@{/payment}" 
+				  id="formPayment"
+				  method="POST">
+				<table class="customerInfo">
+					<tr>
+						<td><span class="myLabel">Họ Tên </span>
+							<label style="color: red;" id="errorName"></label> 
+							<input type="text"
+								   name="customerName" 
+								   class="customer-payment" 
+								   value="" th:value="${user.fullName}"
+								   id="formName"></td>
+					</tr>
+					<tr>
+						<td><span class="myLabel">Email </span> 
+							<label style="color: red;" id="errorEmail"></label>
+							<input type="email"
+								   name="email" 
+								   class="customer-payment" 
+								   value="" id="formEmail" 
+								   th:value="${user.email}"></td>
+					</tr>
+					<tr>
+						<td><span class="myLabel">Số điện thoại </span> 
+							<label style="color: red;" id="errorPhone"></label>
+							<input type="tel"
+								   name="phoneNumber" 
+								   class="customer-payment" 
+								   value=""  id="formPhone"
+								   th:value="${user.phoneNumber}"></td>
+					</tr>
+					<tr>
+						<td><span class="myLabel">Địa chỉ </span> 
+							<label style="color: red;" id="errorAddress"></label> 
+							<textarea 
+								rows="4" cols="30" 
+								name="address" 
+								class="customer-payment" 
+								th:text="${user.address}"
+								id="formAddress"></textarea></td>
+					</tr>
+				</table>
+
+				<input type="submit" class="paymentSubmit" id="payment"
+					value="Thanh toán"> 
+			</form>
+		</div>
+	</div>
+
+	<!--//content-->
+	<!--footer-->
+	<div th:replace="footer :: footer"></div>
+	<!--//footer-->
+</body>
+</html>

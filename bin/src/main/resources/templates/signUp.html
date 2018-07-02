@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Đăng ký</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css"
+	media="all" />
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords"
+	content="Fashion Mania Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+
+<!-- start menu -->
+<link th:href="@{/css/memenu.css}" rel="stylesheet" type="text/css"
+	media="all" />
+</head>
+<body>
+	<!--header-->
+	<div th:replace="header :: header"></div>
+	<!--content-->
+	<div class="account">
+		<div class="container register">
+			<h3 class="message" th:if="${successMess}" th:text="${successMess}"></h3>
+			<h1>Đăng ký</h1>
+			<form name="signUpForm" th:action="@{/account/sign-up}" th:object="${accountSignup}" method="POST">
+				<div class="col-md-6 register-top-grid">
+					<table class="tRegister">
+						<tr class="tRegisterTitle"><td>Thông tin tài khoản</td></tr>
+						<tr>
+							<td>
+								<span class="myLabel">Email</span><b class="message">*</b>
+								<label class="message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+								<input type="text" id="email" name="email" th:field="*{email}" placeholder="example: username@gmail.com">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="myLabel">Mật khẩu</span><b class="message">*</b>
+								<label class="message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+								<input type="password" name="password" th:field="*{password}">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="myLabel">Nhập lại mật khẩu</span><b class="message">*</b>
+								<label class="message" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></label>
+								<input type="password" name="confirmPassword" th:field="*{confirmPassword}">
+							</td>
+						</tr>
+					</table>
+					<div class="clearfix"></div>
+				</div>
+				<div class="col-md-6 register-bottom-grid">
+					<table class="tRegister">
+						<tr class="tRegisterTitle"><td>Thông tin cá nhân</td></tr>
+						<tr>
+							<td>
+								<span class="myLabel">Họ tên</span><b class="message">*</b>
+								<label class="message" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></label>
+								<input type="text" name="fullName" th:field="*{fullName}">
+							</td>
+						</tr>
+						<tr></tr>
+						<tr>
+							<td>
+								<span class="myLabel">Địa chỉ giao hàng</span>
+								<input type="text" name="address" th:field="*{address}">
+							</td>
+						</tr>
+						<tr></tr>
+						<tr>
+							<td>
+								<span class="myLabel">Điện thoại (10 - 11 số)</span>
+								<label class="message" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></label>
+								<input type="text" name="phoneNumber" th:field="*{phoneNumber}">
+							</td>
+						</tr>
+						<tr></tr>
+					</table>
+				</div>
+				<div>
+					<input type="submit" class="registerSubmit" value="Đăng ký">
+					<a class="accountLink loginFromRegister" th:href="@{/account/login}">Đăng nhập</a>
+				</div>
+				<div class="clearfix"></div>
+			</form>
+		</div>
+	</div>
+	<!--//content-->
+	<!--footer-->
+	<div th:replace="footer :: footer"></div>
+	<!--//footer-->
+		<script type="text/javascript">
+		$(function(res) {
+			var sizeCart = $("#sizeCart").html();
+			if (sizeCart == "(null)") {
+				$("#sizeCart").html("(0)");
+			}
+		});
+	</script>
+</body>
+</html>

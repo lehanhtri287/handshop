@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div class="footer" th:fragment="footer">
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="col-sm-4 footer-bottom-cate">
+					<h6>Danh mục sản phẩm</h6>
+					<ul>
+						<li th:each="category : ${listCate}">
+							<a th:href="@{'/viewByCate/' + ${category.idCategory}}" th:text="${category.nameCategory}"></a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-sm-4 footer-bottom-cate">
+					<h6>Sản phẩm bán chạy</h6>
+					<ul>
+						<div></div>
+						<li><a th:href="@{#}"></a></li>
+					</ul>
+				</div>
+				<div class="col-sm-4 footer-bottom-cate cate-bottom">
+					<h6>Địa chỉ</h6>
+					<ul>
+						<li>ĐH Nông Lâm, TP HCM</li>
+						<li class="phone">LH : 6985792466</li>
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+				<p class="footer-class">
+					© 2017 Trần Lê Vi Handshop. All Rights Reserved | Design by
+					<a href="http://facebook.com/trinhpham.0415" target="_blank">Trinh Phạm</a>
+					| Developed by
+					<a href="http://facebook.com/trile28" target="_blank">Trí Lê</a>
+					 and <a href="http://facebook.com/trinhpham.0415" target="_blank">Trinh Phạm</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

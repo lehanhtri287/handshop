@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Quên mật khẩu</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css"
+	media="all" />
+<script th:src="@{/js/jquery.min.js}"></script>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords"
+	content="Fashion Mania Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+</script>
+<!-- start menu -->
+<link th:href="@{/css/memenu.css}" rel="stylesheet" type="text/css" media="all" />
+<script th:src="@{js/simpleCart.min.js}">
+	
+</script>
+</head>
+<body>
+	<!--header-->
+	<div th:replace="header :: header"></div>
+	<!--content-->
+	<div class="account">
+		<div class="container">
+			<h1>Quên mật khẩu</h1>
+			<div class="account_grid">
+				<div class="col-md-12 login-right">
+					<form action="LoginServlet" method="POST">
+						<table class="tLogin" align="center">
+							<tr>
+								<td colspan="2">
+									<span class="myLabel">Email</span>
+									<input type="text" name="email">
+								</td>
+							</tr>
+							<tr>
+								<td><input type="submit" class="forgotPassSubmit" value="Tiếp tục"></td>
+							</tr>
+							<tr>
+								<td><a class="accountLink leftLogin" th:href="@{/account/login}">Đăng nhập</a></td>
+								<td><a class="accountLink" th:href="@{/account/sign-up}">Chưa có tài khoản?</a></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+
+	<!--//content-->
+	<!--footer-->
+	<div th:replace="footer :: footer"></div>
+	<!--//footer-->
+</body>
+</html>

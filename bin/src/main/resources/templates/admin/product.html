@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="theme-color" content="#3e454c">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Quản lý sản phẩm</title>
+<!-- InstanceEndEditable -->
+<!-- Font awesome -->
+<link rel="stylesheet" th:href="@{/admin/css/font-awesome.min.css}">
+<!-- Sandstone Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/admin/css/bootstrap.minAdmin.css}">
+<!-- Admin Style -->
+<link rel="stylesheet" th:href="@{/admin/css/styleAdmin.css}">
+
+<!-- Loading Scripts -->
+<script th:src="@{/admin/js/jquery.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/js/main.js}"></script>
+<script th:src="@{/admin/js/index.js}"></script>
+</head>
+
+<body>
+	<div class="brand clearfix">
+		<a th:href="@{/admin/index}" class="logo"><img
+			src="/ShopHM1/images/logo.png" class="img-responsive" alt=""></a> <span
+			class="menu-btn"><i class="fa fa-bars"></i></span>
+		<ul class="ts-profile-nav">
+			<li class="ts-account"><a href="#"
+				th:text="${session.admin.fullName}"><img src="img/ts-avatar.jpg"
+					class="ts-avatar hidden-side" alt=""> Tài khoản <i
+					class="fa fa-angle-down hidden-side"></i></a>
+				<ul>
+					<li><a th:href="@{/admin/logout}">Đăng xuất</a></li>
+				</ul></li>
+		</ul>
+	</div>
+	<div class="ts-main-content">
+		<nav class="ts-sidebar">
+			<ul class="ts-sidebar-menu">
+				<li class="ts-label">Danh Mục</li>
+			</ul>
+			<!-- InstanceBeginEditable name="open" -->
+			<ul class="ts-sidebar-menu">
+				<li><a th:href="@{/admin/index}"><i class="fa fa-dashboard"></i>Thống
+						Kê</a></li>
+				<li class="open"><a th:href="@{/admin/manageProduct}"><i
+						class="fa fa-database"></i>Sản Phẩm</a></li>
+				<li><a th:href="@{/admin/manageOrder}"><i class="fa fa-pencil-square-o"></i>Đơn
+						Hàng</a></li>
+				<li><a th:href="@{customer.html}"><i class="fa fa-users"></i>Khách
+						Hàng</a></li>
+			</ul>
+			<!-- InstanceEndEditable -->
+		</nav>
+		<!-- InstanceBeginEditable name="content" -->
+		<div class="content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<h2 class="page-title">Quản lý sản phẩm</h2>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-4">
+										<div class="panel panel-default">
+											<div class="panel-body bk-primary text-light">
+												<div class="stat-panel text-center h1">
+													<a th:href="@{/admin/insertProduct}">+</a>
+												</div>
+												<div class="stat-panel-title text-uppercase text-center">
+													<a th:href="@{/admin/insertProduct}" class="hover-product">Thêm
+														sản phẩm mới</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="panel panel-default">
+											<div class="panel-body bk-danger text-light">
+												<div class="stat-panel text-center">
+													<div class="stat-panel-number h1 "><a th:href="@{/admin/manageCategory}">#</a></div>
+													<div class="stat-panel-title text-uppercase">
+														<a th:href="@{/admin/manageCategory}">Quản lý danh mục</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="panel panel-default" href="#">
+											<div class="panel-body bk-success text-light">
+												<div class="stat-panel text-center">
+													<div class="stat-panel-number h1 " th:text="${productSize}"></div>
+													<div class="stat-panel-title text-uppercase">Tổng Sản
+														Phẩm</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">Sản Phẩm</div>
+								<div class="panel-body">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>Mã sản phẩm</th>
+												<th>Tên sản phẩm</th>
+												<th class="hidden-xs">Loại hàng</th>
+												<th class="hidden-xs">Giá(vnđ)</th>
+												<th class="hidden-xs">Số lượng</th>
+												<th>Thao tác</th>
+											</tr>
+										</thead>
+										<tbody th:each="product : ${products}">
+											<tr>
+												<td th:text="${product.idProduct}"></td>
+												<td th:text="${product.nameProduct}"></td>
+												<td class="hidden-xs" th:text="${product.category.nameCategory}"></td>
+												<td class="hidden-xs" th:text="${product.price}"></td>
+												<td class="hidden-xs" th:text="${product.quantityProduct}"></td>
+												<td><div class="btn-group btn-group-sm">
+														<button class="btn btn-primary hidden-xs"
+															data-toggle="modal" th:data-target="@{'#view' + ${product.idProduct}}">
+															<i class="fa fa-eye" title="Chỉnh sửa"></i>
+														</button>
+														<a th:href="@{'/admin/editProduct/' + ${product.idProduct}}" class="btn btn-success"> <i
+															class="fa fa-edit" title="Chỉnh sửa"></i></a> 
+														<a th:href="@{'/admin/deleteProduct/' + ${product.idProduct}}"
+															class="btn btn-danger">x</a>
+														<div th:id="@{'view' + ${product.idProduct}}" class="modal fade">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close"
+																			data-dismiss="modal">&times;</button>
+																		<h4 class="modal-title">Thông tin sản phẩm</h4>
+																	</div>
+																	<!--end modal-header-->
+																	<div class="modal-body">
+																		<div class="product">
+																			<div class="img-product text-center">
+																				<img style="width: 300px; height: 150px" th:src="@{'/' + ${product.images}}" alt="">
+																			</div>
+																			<div style="text-align: center;" class="detail-product">
+																				<p style="text-align: center; font-weight: bold;" th:text="${'Mã sản phẩm : ' + product.idProduct}"></p>
+																				<p style="text-align: center; font-weight: bold;" th:text="${'Tên sản phẩm: ' + product.nameProduct}"></p>
+																				<p style="text-align: center; font-weight: bold;" th:text="${'Loại hàng: ' + product.category.nameCategory}"></p>
+																				<p style="text-align: center; font-weight: bold;" th:text="${'Giá: ' + product.price}"></p>
+																				<p style="text-align: center; font-weight: bold;" th:text="${'Số lượng: ' + product.quantityProduct}"></p>																				
+																				<a style="text-align: center; font-weight: bold;" th:href="@{'/admin/editProduct/' + ${product.idProduct}}" class="btn btn-default">Sửa thông tin</a>
+																			</div>
+																		</div>
+
+																	</div>
+																	<!--end modal-body-->
+																</div>
+																<!--end modal-content-->
+															</div>
+															<!--end modal-dialog-->
+														</div>
+													</div></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="foot">
+					<ul class="pagination">
+						<li><a href="#" aria-label="Previous"> <span
+								aria-hidden="true">&laquo;</span>
+						</a></li>
+						<li><a th:href="@{'/admin/manageProduct/' + ${i}}" th:each=" i : ${#numbers.sequence(1, numPages)}" th:text="${i}" ></a></li>
+						<li><a href="#" aria-label="Next"> <span
+								aria-hidden="true">&raquo;</span>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</div>
+		<!-- /.content-wrapper -->
+		<script>
+			$("[data-toggle=popover]").popover({
+				html : true,
+				content : function() {
+					return $('#view').html();
+				}
+			});
+		</script>
+		<!-- InstanceEndEditable -->
+	</div>
+</body>
+<!-- InstanceEnd -->
+</html>

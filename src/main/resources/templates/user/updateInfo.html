@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Cập nhật thông tin</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css"
+	media="all" />
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords"
+	content="Fashion Mania Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+
+<!-- start menu -->
+<link th:href="@{/css/memenu.css}" rel="stylesheet" type="text/css"
+	media="all" />
+</head>
+<body>
+	<!--header-->
+	<div th:replace="header :: header"></div>
+	<!--content-->
+	<div class="account" th:classappend="${session.user == null} ? 'userNotLogin' : ''">
+		<div class="menuSettings" th:if="${session.user != null}">
+			<ul>
+				<li><a class="settingLink" th:href="@{/user/info/password}">Đổi mật khẩu</a></li>
+				<li><a class="settingLink" th:href="@{/user/info/orders}">Lịch sử đơn hàng</a></li>
+			</ul>
+		</div>
+		<div class="container register userInf">
+			<h3 class="message" th:if="${message!=null}" th:text="${message}"></h3>
+			<div class="userInfo" th:if="${session.user != null}">
+				<h2>Thông tin cá nhân</h2>
+				<form th:if="${session.user != null}" th:action="@{/user/info}" th:object="${account}" method="POST">
+					<table class="tUserInfo">
+						<tr hidden="hidden">
+							<td>
+								<span class="myLabel">Email</span><label style="color: red;" id="errorName"></label>
+								<input type="text" class="customer-payment" name="email" th:value="${session.user.email}" id="formName">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="myLabel">Họ Tên</span>
+								<label class="message" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></label>
+								<input type="text" class="customer-payment" name="fullName" th:value="${session.user.fullName}" id="formName">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="myLabel">Số điện thoại</span>
+								<label class="message" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></label>
+								<input type="text" class="customer-payment" name="phoneNumber" th:value="${session.user.phoneNumber}" id="formPhone">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="myLabel">Địa chỉ</span> <label style="color: red;" id="errorAddress"></label>
+								<textarea class="customer-payment" rows="4" cols="30" name="address" th:text="${session.user.address}" id="formAddress"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="myLabel">Nhập mật khẩu để cập nhật</span><b class="message">*</b>
+								<label class="message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+								<input class="customer-payment" type="password" name="password">
+							</td>
+						</tr>
+					</table>
+					<input type="submit" class="paymentSubmit" id="payment"
+						value="Cập nhật"> <label style="color: red;"></label>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--footer-->
+	<div th:replace="footer :: footer"></div>
+	<script type="text/javascript">
+		$(function(res) {
+			var sizeCart = $("#sizeCart").html();
+			if (sizeCart == "(null)") {
+				$("#sizeCart").html("(0)");
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+
+<title>T&T Handshop</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css"
+	media="all" />
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords"
+	content="Fashion Mania Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript">
+	
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+
+</script>
+<!-- start menu -->
+<link th:href="@{/css/memenu.css}" rel="stylesheet" type="text/css"
+	media="all" />
+
+<script type="text/javascript">
+	function addCart(prod_id) {
+		var host = window.location.host;
+		$.ajax({
+			type : "POST",
+			data : {
+				prodId : prod_id
+			},
+			url : "http://" + host + "/handshop/shoppingcart",
+			async : true
+		});
+	}
+</script>
+<script type="text/javascript">
+	$(function(res) {
+		var sizeCart = $("#sizeCart").html();
+		if (sizeCart == "(null)") {
+			$("#sizeCart").html("(0)");
+		}
+	});
+</script>
+
+</head>
+<body>
+
+	<!--header-->
+	<div th:replace="header :: header"></div>
+	<!--content-->
+	<div th:replace="mainIndex :: main"></div>
+	<!--footer-->
+	<div th:replace="footer :: footer"></div>
+
+</body>
+</html>
