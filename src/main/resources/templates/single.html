@@ -40,13 +40,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- slide -->
 <script type="text/javascript">
 	function addCart(prod_id) {
-		var host = window.location.host;
+		var host =  window.location.host + window.location.pathname;
 		$.ajax({
 			type : "POST",
 			data : {
 				prodId : prod_id
 			},
-			url : "http://" + host + "/handshop//shoppingcart",
+			url : "http://" + host + "/shoppingcart",
 			async : true
 		});
 		//alert("http://" + host + "/shoppingcart");
